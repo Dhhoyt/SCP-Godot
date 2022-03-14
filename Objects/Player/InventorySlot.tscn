@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://cu5bsxoxdxvrr"]
+
+[ext_resource type="Texture2D" uid="uid://dbbf5ii46tn8o" path="res://Assets/Inventory/Slot.png" id="1_dlsau"]
+[ext_resource type="Script" path="res://Scripts/Item.gd" id="2_mcvjf"]
+
+[node name="Slot" type="TextureRect"]
+rect_min_size = Vector2(128, 128)
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource( "1_dlsau" )
+
+[node name="Item" type="TextureRect" parent="."]
+offset_right = 128.0
+offset_bottom = 128.0
+ignore_texture_size = true
+script = ExtResource( "2_mcvjf" )
+__meta__ = {
+"_edit_layout_mode": 0,
+"_edit_use_custom_anchors": false
+}

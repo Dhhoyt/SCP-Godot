@@ -1,0 +1,259 @@
+[gd_scene load_steps=8 format=3 uid="uid://c7d8w35oq5j1x"]
+
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="1_3qes4"]
+[ext_resource type="PackedScene" uid="uid://cu5bsxoxdxvrr" path="res://Objects/Player/InventorySlot.tscn" id="2_6yj1x"]
+[ext_resource type="Script" path="res://Scripts/InventoryBackground.gd" id="2_xos2n"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lk8nv"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_cs51o"]
+sky_top_color = Color(0.0588235, 0.517647, 0.772549, 1)
+sky_curve = 0.117688
+ground_bottom_color = Color(0.266667, 0.270588, 0.278431, 1)
+ground_curve = 0.2884
+sun_angle_max = 21.91
+sun_curve = 0.382371
+
+[sub_resource type="Sky" id="Sky_q5gn6"]
+sky_material = SubResource( "ProceduralSkyMaterial_cs51o" )
+
+[sub_resource type="Environment" id="Environment_ev26d"]
+background_mode = 2
+sky = SubResource( "Sky_q5gn6" )
+fog_density = 0.1333
+
+[node name="Player" type="CharacterBody3D" groups=["player"]]
+script = ExtResource( "1_3qes4" )
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource( "CapsuleShape3D_lk8nv" )
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.503298, 0)
+environment = SubResource( "Environment_ev26d" )
+
+[node name="Pickup" type="Position3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.36936)
+
+[node name="EyesOpen" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[node name="EyesClosed" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="UI" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_custom_anchors": false
+}
+
+[node name="Stamina" type="Label" parent="UI"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -26.0
+offset_right = 43.0
+grow_vertical = 0
+text = "10/20"
+horizontal_alignment = 1
+vertical_alignment = 1
+__meta__ = {
+"_edit_layout_mode": 1,
+"_edit_use_custom_anchors": false
+}
+
+[node name="BlinkMeter" type="Label" parent="UI"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -43.0
+offset_top = -26.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "10/20"
+__meta__ = {
+"_edit_layout_mode": 1,
+"_edit_use_custom_anchors": false
+}
+
+[node name="BlinkRect" type="ColorRect" parent="UI"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+__meta__ = {
+"_edit_layout_mode": 1,
+"_edit_use_custom_anchors": false
+}
+
+[node name="IdentifierText" type="Label" parent="UI"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+__meta__ = {
+"_edit_layout_mode": 1,
+"_edit_use_custom_anchors": false
+}
+
+[node name="Inventory" type="Control" parent="."]
+visible = false
+layout_direction = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+__meta__ = {
+"_edit_use_custom_anchors": false
+}
+
+[node name="InventoryBackground" type="ColorRect" parent="Inventory"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.52549)
+script = ExtResource( "2_xos2n" )
+__meta__ = {
+"_edit_layout_mode": 1,
+"_edit_use_custom_anchors": false
+}
+
+[node name="GridContainer" type="GridContainer" parent="Inventory"]
+rect_min_size = Vector2(128, 128)
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/vseparation = 0
+theme_override_constants/hseparation = 0
+columns = 5
+__meta__ = {
+"_edit_layout_mode": 1,
+"_edit_use_custom_anchors": false
+}
+
+[node name="Slot" parent="Inventory/GridContainer" instance=ExtResource( "2_6yj1x" )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 128.0
+offset_bottom = 128.0
+
+[node name="Slot2" parent="Inventory/GridContainer" instance=ExtResource( "2_6yj1x" )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 128.0
+offset_top = 0.0
+offset_right = 256.0
+offset_bottom = 128.0
+
+[node name="Slot3" parent="Inventory/GridContainer" instance=ExtResource( "2_6yj1x" )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 256.0
+offset_top = 0.0
+offset_right = 384.0
+offset_bottom = 128.0
+
+[node name="Slot4" parent="Inventory/GridContainer" instance=ExtResource( "2_6yj1x" )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 384.0
+offset_top = 0.0
+offset_right = 512.0
+offset_bottom = 128.0
+
+[node name="Slot5" parent="Inventory/GridContainer" instance=ExtResource( "2_6yj1x" )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 512.0
+offset_top = 0.0
+offset_right = 640.0
+offset_bottom = 128.0
+
+[node name="Slot6" parent="Inventory/GridContainer" instance=ExtResource( "2_6yj1x" )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 128.0
+offset_right = 128.0
+offset_bottom = 256.0
+
+[node name="Slot7" parent="Inventory/GridContainer" instance=ExtResource( "2_6yj1x" )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 128.0
+offset_top = 128.0
+offset_right = 256.0
+offset_bottom = 256.0
+
+[node name="Slot8" parent="Inventory/GridContainer" instance=ExtResource( "2_6yj1x" )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 256.0
+offset_top = 128.0
+offset_right = 384.0
+offset_bottom = 256.0
+
+[node name="Slot9" parent="Inventory/GridContainer" instance=ExtResource( "2_6yj1x" )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 384.0
+offset_top = 128.0
+offset_right = 512.0
+offset_bottom = 256.0
+
+[node name="Slot10" parent="Inventory/GridContainer" instance=ExtResource( "2_6yj1x" )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 512.0
+offset_top = 128.0
+offset_right = 640.0
+offset_bottom = 256.0
+
+[connection signal="timeout" from="EyesOpen" to="." method="close_eyes"]
+[connection signal="timeout" from="EyesClosed" to="." method="open_eyes"]

@@ -1,0 +1,49 @@
+[gd_scene load_steps=9 format=3 uid="uid://b2snqema5dehn"]
+
+[ext_resource type="Script" path="res://Debug/Maze.gd" id="1_a7p44"]
+[ext_resource type="PackedScene" uid="uid://c7d8w35oq5j1x" path="res://Objects/Player/Player.tscn" id="2_gmxdt"]
+[ext_resource type="Shader" path="res://Debug/Maze.gdshader" id="3_gfn1u"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_0bi5o"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_f5a0k"]
+detail/sample_distance = 2.31
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2d6lq"]
+shader = ExtResource( "3_gfn1u" )
+shader_param/amount = null
+
+[sub_resource type="Gradient" id="Gradient_oat77"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1grnr"]
+gradient = SubResource( "Gradient_oat77" )
+
+[node name="Maze" type="Node3D"]
+script = ExtResource( "1_a7p44" )
+
+[node name="Player" parent="." instance=ExtResource( "2_gmxdt" )]
+
+[node name="Camera3D" parent="Player" index="1"]
+current = true
+far = 30.0
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource( "WorldBoundaryShape3D_0bi5o" )
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, -8.74228e-08, 0, 0, 0, 1, -8.74228e-08, 1, 0, 50, 74.737, 50)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.828775, 0.22038, -0.514359, 0.22891, 0.705237, 0.671, 0.51062, -0.67385, 0.534036, 0, 36.5214, 0)
+shadow_enabled = true
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navmesh = SubResource( "NavigationMesh_f5a0k" )
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource( "ShaderMaterial_2d6lq" )
+texture = SubResource( "GradientTexture2D_1grnr" )
+
+[editable path="Player"]

@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://v0bfch3jlll5"]
+
+[ext_resource type="Material" uid="uid://ddsnsej1lcidb" path="res://Debug/DebugMaze.tres" id="1_j1bq4"]
+[ext_resource type="Script" path="res://Debug/Maze Segment.gd" id="2_0kh0b"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_op0wa"]
+material = ExtResource( "1_j1bq4" )
+size = Vector2(5, 5)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_bs8sg"]
+material = ExtResource( "1_j1bq4" )
+size = Vector2(5, 5)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_x0d2b"]
+data = PackedVector3Array(2.5, 0, 2.5, -2.5, 0, 2.5, 2.5, 0, -2.5, -2.5, 0, 2.5, -2.5, 0, -2.5, 2.5, 0, -2.5)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_og472"]
+material = ExtResource( "1_j1bq4" )
+size = Vector2(5, 5)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_4l4uf"]
+data = PackedVector3Array(2.5, 0, 2.5, -2.5, 0, 2.5, 2.5, 0, -2.5, -2.5, 0, 2.5, -2.5, 0, -2.5, 2.5, 0, -2.5)
+
+[node name="MazeSegment" type="MeshInstance3D"]
+mesh = SubResource( "PlaneMesh_op0wa" )
+script = ExtResource( "2_0kh0b" )
+
+[node name="Up" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 2.5, 2.5)
+mesh = SubResource( "PlaneMesh_bs8sg" )
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Up"]
+
+[node name="@@31199" type="CollisionShape3D" parent="Up/StaticBody3D"]
+shape = SubResource( "ConcavePolygonShape3D_x0d2b" )
+
+[node name="Left" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 2.5, 2.5, 0)
+mesh = SubResource( "PlaneMesh_og472" )
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Left"]
+
+[node name="@@29786" type="CollisionShape3D" parent="Left/StaticBody3D"]
+shape = SubResource( "ConcavePolygonShape3D_4l4uf" )
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, -6.75545e-08, 5.54899e-08, 0, 0.634731, 0.772734, -8.74228e-08, 0.772734, -0.63473, 35, 65, -8)
